@@ -12,7 +12,7 @@ func _physics_process(delta):
 	
 	
 func get_movement_vector() -> Vector2:
-	var move_vector: Vector2
+	var move_vector = Vector2(0, 0)
 	
 	move_vector.x = (
 		Input.get_action_strength("right") - Input.get_action_strength("left")
@@ -25,5 +25,12 @@ func get_movement_vector() -> Vector2:
 		$AnimatedSprite.flip_h = true
 	if move_vector.x > 0:
 		$AnimatedSprite.flip_h = false
+		
+	if move_vector != Vector2(0, 0):
+		$AnimatedSprite.playing = true
+		$AnimatedSprite.play("walking")
+	else:
+		$AnimatedSprite.playing = false
+		$AnimatedSprite.play("idle")
 	
 	return move_vector * speed
